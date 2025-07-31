@@ -11,6 +11,6 @@ public class ShieldPowerup : Powerup
     {
         if (player == null) return;
 
-        player.ActivateShield(duration, shieldColor);
+        //player.ActivateShield(duration, shieldColor);
     }
 }

@@ -21,6 +21,7 @@ public class ObstacleGenerator : MonoBehaviour
     [SerializeField] private float lazerDowntimeMin = 5f;
     [SerializeField] private float lazerDowntimeDecreasePerPhase = 2f;
     [SerializeField] private float lazerUptimeIncreasePerPhase = 4f;
+
     [Header("Big Asteroids")]
     [SerializeField] private GameObject bigAsteroidPrefab;
     [SerializeField] private int bigAsteroidSpawnPhase = 3;
@@ -31,6 +32,16 @@ public class ObstacleGenerator : MonoBehaviour
     [SerializeField] private float bigAsteroidSpeedMin = 10f;
     [SerializeField] private float bigAsteroidSpeedMax = 20f;
 
+    [Header("Drones")]
+    [SerializeField] private GameObject dronePrefab = null;
+    [SerializeField] private int droneSpawnPhase = 3;
+    [SerializeField] private float droneSpawnInterval = 4f;
+    [SerializeField] private float droneSpawnDecreasePerPhase = 0.6f;
+    [SerializeField] private float droneSpawnMin = 1f;
+    [SerializeField] private float droneSpawnDistanceFromMiddle = 4f;
+    [SerializeField] private float droneSpawnRange = 1f;
+    [SerializeField] private float droneMoveSpeed = 3f;
+
 
     [Header("MSC.")]
     [SerializeField] private float spawnDistanceOffsetX = 10f;
@@ -39,6 +50,7 @@ public class ObstacleGenerator : MonoBehaviour
     float asteroidTimeLeft = 0f;
     float bigAsteroidTimeLeft = 0f;
     float lazerTimeLeft = 5f;
+    float droneTimeLeft = 0f;
     public bool lazerUp = false;
     public int phase = 1;
 
@@ -80,6 +92,17 @@ public class ObstacleGenerator : MonoBehaviour
             {
                 bigAsteroidTimeLeft = bigAsteroidSpawnInterval;
                 SpawnBigAsteroid();
+            }
+        }
+
+        //spawn drones
+        if(phase >= droneSpawnPhase)
+        {
+            droneTimeLeft -= Time.deltaTime;
+            if (droneTimeLeft < 0)
+            {
+                droneTimeLeft = droneSpawnInterval;
+                spawnDrone();
             }
         }
     }
@@ -161,6 +184,19 @@ public class ObstacleGenerator : MonoBehaviour
     {
         GameObject lazer = Instantiate(lazerPrefab, Vector2.zero, Quaternion.identity);
         lazer.transform.Rotate(0, 0, Random.Range(0, 360));
+    }
+
+    void spawnDrone()
+    {
+        int num = Random.Range(0, 2);
+        int side = 1;
+        if (num == 0)
+        {
+            side = -1;
+        }
+
+        GameObject refDrone = Instantiate(dronePrefab, new Vector2((droneSpawnDistanceFromMiddle + Random.Range(0, droneSpawnRange)) * side, spawnDistanceOffsetY), Quaternion.identity);
+        refDrone.GetComponentInChildren<Rigidbody2D>().AddForce(new Vector2(0,-droneMoveSpeed), ForceMode2D.Impulse);
     }
 
     public void RaisePhase()

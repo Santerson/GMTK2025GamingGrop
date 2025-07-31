@@ -12,7 +12,7 @@ public class SpeedPowerup : Powerup
     {
         if (player == null) return;
 
-        player.ActivateSpeedBoost(speedMultiplier, duration);
+        //player.ActivateSpeedBoost(speedMultiplier, duration);
         PlaySpeedEffect(player.transform);
     }
 

@@ -9,10 +9,13 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float dashSpeed = 7f;
     [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashCooldown = 1f; // Cooldown time for dashing
+    [SerializeField] private LineRenderer cooldownLine = null;
 
     int currentNode = 0;
     int direction = 1;
     float baseSpeed = 0f;
+    float dashCooldownTimeLeft = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -39,11 +42,36 @@ public class Player : MonoBehaviour
                 currentNode = pathNodes.Count - 1;
             }
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimeLeft <= 0)
         {
             // Dash in the current direction
             speed = dashSpeed; // Increase speed for dashing
             StartCoroutine(Dash());
+        }
+        if (dashCooldownTimeLeft > 0)
+        {
+            dashCooldownTimeLeft -= Time.deltaTime; // Decrease cooldown time
+            if (cooldownLine != null)
+            {
+                cooldownLine.enabled = true;
+                cooldownLine.startWidth = 0.1f;
+                cooldownLine.endWidth = 0.1f;
+
+                // Calculate progress (0 = just started, 1 = fully cooled down)
+                float progress = 1f - Mathf.Clamp01(dashCooldownTimeLeft / dashCooldown);
+
+                // Center point directly above the player
+                Vector2 center = new Vector2(transform.position.x, transform.position.y + 0.5f);
+
+                // At 0% progress, both points are at 'center'
+                // At 100% progress, points are 1 unit up and 1 unit down from 'center'
+                cooldownLine.SetPosition(0, center + (new Vector2(-0.3f, 0) * progress));
+                cooldownLine.SetPosition(1, center + (new Vector2(0.3f, 0) * progress));
+            }
+        }
+        else if (cooldownLine != null)
+        {
+            cooldownLine.enabled = false; // Disable the line when not cooling down
         }
     }
 
@@ -51,6 +79,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(dashDuration);
         speed = baseSpeed; // Reset speed after dashing
+        dashCooldownTimeLeft = dashCooldown; // Start cooldown
     }
 
     private void FixedUpdate()

@@ -181,7 +181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6184788679304323238}
   m_Layer: 0
-  m_Name: Lazer
+  m_Name: Giant Fuckoff lazer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
