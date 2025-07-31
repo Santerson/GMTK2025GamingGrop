@@ -61,8 +61,6 @@ public class Drone : MonoBehaviour
             refProjectile.transform.rotation = Quaternion.Euler(0, 0, angle);
 
             //fire!!!
-            //up is relative. up is forward.
-           
             refProjectile.GetComponentInChildren<Rigidbody2D>().AddForce(direction.normalized * projectileSpeed, ForceMode2D.Impulse);
         }
     }

@@ -42,6 +42,19 @@ public class ObstacleGenerator : MonoBehaviour
     [SerializeField] private float droneSpawnRange = 1f;
     [SerializeField] private float droneMoveSpeed = 3f;
 
+    [Header("Piss Missles")]
+    [SerializeField] private GameObject pissMisslePrefab = null;
+    [SerializeField] private int pissMissleSpawnPhase = 3;
+    [SerializeField] private int threeFoldPissMisslesSpawnPhase = 5;
+    [SerializeField] private int fiveFoldPissMisslesSpawnPhase = 6;
+    [SerializeField] private float pissMissleSpawnInterval = 9f;
+    [SerializeField] private float pissMissleSpawnDecreasePerPhase = 1f;
+    [SerializeField] private float pissMissleSpawnMin = 4f;
+    [SerializeField] public float pissMissleSpeed = 20f;
+    [SerializeField] public float pissMissleLaunchDelay = 2f;
+    [SerializeField] private float pissMissleLaunchDelayDecreasePerPhase = 0.2f;
+    [SerializeField] private float pissMissleLaunchDelayMin = 0.5f;
+    [SerializeField] private float pissMissleMultipleIncreaseAngle = 30f;
 
     [Header("MSC.")]
     [SerializeField] private float spawnDistanceOffsetX = 10f;
@@ -50,15 +63,11 @@ public class ObstacleGenerator : MonoBehaviour
     float asteroidTimeLeft = 0f;
     float bigAsteroidTimeLeft = 0f;
     float lazerTimeLeft = 5f;
-    float droneTimeLeft = 0f;
+    float droneTimeLeft = 2f;
+    float pissMissleTimeLeft = 2f;
+
     public bool lazerUp = false;
     public int phase = 1;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -103,6 +112,17 @@ public class ObstacleGenerator : MonoBehaviour
             {
                 droneTimeLeft = droneSpawnInterval;
                 spawnDrone();
+            }
+        }
+
+        //spawn piss missles
+        if (phase >= pissMissleSpawnPhase)
+        {
+            pissMissleTimeLeft -= Time.deltaTime;
+            if (pissMissleTimeLeft <= 0)
+            {
+                pissMissleTimeLeft = pissMissleSpawnInterval;
+                spawnPissMissle();
             }
         }
     }
@@ -186,6 +206,28 @@ public class ObstacleGenerator : MonoBehaviour
         lazer.transform.Rotate(0, 0, Random.Range(0, 360));
     }
 
+    void spawnPissMissle()
+    {
+        GameObject pissMissle = Instantiate(pissMisslePrefab, Vector2.zero, Quaternion.identity);
+        float rotation = Random.Range(0, 360);
+        pissMissle.transform.Rotate(0, 0, rotation);
+        if (phase >= threeFoldPissMisslesSpawnPhase)
+        {
+            pissMissle = Instantiate(pissMisslePrefab, Vector2.zero, Quaternion.identity);
+            pissMissle.transform.Rotate(0, 0, rotation + pissMissleMultipleIncreaseAngle);
+            pissMissle = Instantiate(pissMisslePrefab, Vector2.zero, Quaternion.identity);
+            pissMissle.transform.Rotate(0, 0, rotation - pissMissleMultipleIncreaseAngle);
+        }
+        if (phase >= fiveFoldPissMisslesSpawnPhase)
+        {
+            pissMissle = Instantiate(pissMisslePrefab, Vector2.zero, Quaternion.identity);
+            pissMissle.transform.Rotate(0, 0, rotation + pissMissleMultipleIncreaseAngle * 2);
+            pissMissle = Instantiate(pissMisslePrefab, Vector2.zero, Quaternion.identity);
+            pissMissle.transform.Rotate(0, 0, rotation - pissMissleMultipleIncreaseAngle * 2);
+        }
+
+    }
+
     void spawnDrone()
     {
         int num = Random.Range(0, 2);
@@ -209,9 +251,9 @@ public class ObstacleGenerator : MonoBehaviour
         {
             asteroidSpawnInterval = asteroidSpawnMin;
         }
-        ;
+        
         //decrease the lazer spawn rate
-        if (phase + 1 > lazerSpawnPhase)
+        if (phase >= lazerSpawnPhase + 1)
         {
             lazerDowntime -= lazerDowntimeDecreasePerPhase;
             lazerUptime += lazerUptimeIncreasePerPhase;
@@ -223,12 +265,36 @@ public class ObstacleGenerator : MonoBehaviour
         }
 
         //decrease the big asteroid stuff
-        if (phase + 1 > bigAsteroidSpawnPhase)
+        if (phase >= bigAsteroidSpawnPhase + 1)
         {
             bigAsteroidSpawnInterval -= bigAsteroidSspawnDecreasePerPhase;
             if (bigAsteroidSpawnInterval < bigAsteroidSpawnMin)
             {
                 bigAsteroidSpawnInterval = bigAsteroidSpawnMin;
+            }
+        }
+
+        //decrease the drone stuff
+        if (phase >= droneSpawnPhase + 1)
+        {
+            droneSpawnInterval -= droneSpawnDecreasePerPhase;
+            if (droneSpawnInterval < droneSpawnMin)
+            {
+                droneSpawnInterval = droneSpawnMin;
+            }
+        }
+
+        if (phase > pissMissleSpawnPhase + 1)
+        {
+            pissMissleSpawnInterval -= pissMissleSpawnDecreasePerPhase;
+            if (pissMissleSpawnInterval < pissMissleSpawnMin)
+            {
+                pissMissleSpawnInterval = pissMissleSpawnMin;
+            }
+            pissMissleLaunchDelay -= pissMissleLaunchDelayDecreasePerPhase;
+            if (pissMissleLaunchDelay < pissMissleLaunchDelayMin)
+            {
+                pissMissleLaunchDelay = pissMissleLaunchDelayMin;
             }
         }
     }

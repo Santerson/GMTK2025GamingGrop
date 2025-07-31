@@ -11,15 +11,12 @@ public class Score : MonoBehaviour
     [SerializeField] int phaseIncreaseRate = 10;
     [SerializeField] GameObject phaseIncreaseEffect = null;
 
+    [SerializeField] LineRenderer progressBar;
+
     int pastPhaseThresholdCount = 0;
 
     float score = 0;
     float progressToNextPhase = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -34,5 +31,9 @@ public class Score : MonoBehaviour
             phaseThreshold += phaseIncreaseRate;
             Instantiate(phaseIncreaseEffect, Vector2.zero, Quaternion.identity);
         }
+        progressBar.SetPosition(0, new Vector2(-9f,0f));
+        float progress = Mathf.Clamp01(progressToNextPhase / phaseThreshold);
+
+        progressBar.SetPosition(1, new Vector2(Mathf.Lerp(-9, 9, progress), 0));
     }
 }

@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 1490529673406167824}
   m_Layer: 0
   m_Name: Helicopter
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -159,5 +159,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 6301250779146828145, guid: 7e40496c9dc28d349815613572df70e8, type: 3}
   shots: 4
-  interval: {x: 1, y: 2}
-  projectileSpeed: 3
+  interval: {x: 2, y: 3}
+  projectileSpeed: 2
