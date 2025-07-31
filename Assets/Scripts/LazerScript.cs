@@ -31,7 +31,7 @@ public class LazerScript : MonoBehaviour
             if (transform.localScale.x > refScale)
             {
                 transform.localScale = new Vector3(refScale, transform.localScale.y, transform.localScale.z);
-                refCollider.enabled = false;
+                refCollider.enabled = true;
             }
         }
         else

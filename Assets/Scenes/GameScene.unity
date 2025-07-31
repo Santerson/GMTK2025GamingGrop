@@ -155,17 +155,26 @@ MonoBehaviour:
   asteroidSpawnInterval: 2
   asteroidSspawnDecreasePerPhase: 0.4
   asteroidSpawnMin: 0.8
+  asteroidRotateAmount: 40
+  asteroidSpeedMin: 1
+  asteroidSpeedMax: 2
   lazerPrefab: {fileID: 3434455905454225817, guid: af7808838651cae4096c2d13518ae987, type: 3}
-  lazerSpawnPhase: 2
+  lazerSpawnPhase: 3
   lazerDowntime: 15
-  lazerUptime: 10
+  lazerUptime: 5
   lazerDowntimeMin: 5
   lazerDowntimeDecreasePerPhase: 2
   lazerUptimeIncreasePerPhase: 4
+  bigAsteroidPrefab: {fileID: 4300447568153999266, guid: d1b22ec980100cf479ad3428435b0d41, type: 3}
+  bigAsteroidSpawnPhase: 2
+  bigAsteroidSpawnInterval: 12
+  bigAsteroidSspawnDecreasePerPhase: 0.3
+  bigAsteroidSpawnMin: 1.4
+  bigAsteroidRotateAmount: 10
+  bigAsteroidSpeedMin: 0.5
+  bigAsteroidSpeedMax: 1
   spawnDistanceOffsetX: 10
   spawnDistanceOffsetY: 6
-  asteroidSpeedMin: 1
-  asteroidSpeedMax: 2
   lazerUp: 0
   phase: 1
 --- !u!4 &488338506

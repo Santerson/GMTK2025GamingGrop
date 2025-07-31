@@ -18,6 +18,7 @@ public class KillField : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(collision.gameObject);
+        if (collision.CompareTag("Destroyable"))
+            Destroy(collision.gameObject);
     }
 }
