@@ -778,7 +778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1267351632}
-  phaseThreshold: 2
+  phaseThreshold: 10
   phaseIncreaseRate: 10
   phaseIncreaseEffect: {fileID: 2511692609768398592, guid: 7c2b309344d74ab47bc6b61430de0601, type: 3}
 --- !u!4 &803830594
@@ -1281,7 +1281,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8ae6b5bd4ccccbc4bb4387273a837efe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1301,8 +1301,8 @@ Transform:
   m_GameObject: {fileID: 1501470754}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.01, y: 3.008, z: 0}
-  m_LocalScale: {x: 0.46967, y: 0.46967, z: 0.46967}
+  m_LocalPosition: {x: -3.7142, y: 1.2106, z: 0}
+  m_LocalScale: {x: 0.34783354, y: 0.34783354, z: 0.34783354}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1354,9 +1354,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.00024424915, y: 0.06231541}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.4339144
 --- !u!1 &1541024154
 GameObject:
   m_ObjectHideFlags: 0
