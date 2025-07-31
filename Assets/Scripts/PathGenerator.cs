@@ -8,9 +8,15 @@ public class PathGenerator : MonoBehaviour
     [SerializeField] public List<Vector2> PathNodes = new List<Vector2>();
     [SerializeField] GameObject LinePrefab; // Prefab for the line object
 
+    private void Awake()
+    {
+        PathNodes = DebugExtensions.DrawCircle(Vector2.zero, 3, Color.white, 64);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+
         //Instantiate a line object between every point
         for (int i = 0; i < PathNodes.Count - 1; i++)
         {
@@ -43,6 +49,7 @@ public class PathGenerator : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        DebugExtensions.DrawCircle(Vector2.zero, 3, Color.white, 64);
         Gizmos.color = Color.red;
         for (int i = 0; i < PathNodes.Count - 1; i++)
         {

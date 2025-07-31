@@ -68,6 +68,8 @@ public class Player : MonoBehaviour
             {
                 // Move to the next node
                 transform.position = nextNode;
+                
+
                 currentNode += this.direction;
                 if (currentNode > pathNodes.Count -1)
                 {
@@ -77,6 +79,16 @@ public class Player : MonoBehaviour
                 {
                     currentNode = pathNodes.Count - 1;
                 }
+
+                step -= Vector2.Distance(currentPosition, nextNode);
+                //keep moving the remaining distance
+                if (step > 0)
+                {
+                    // Move towards the next node
+                    nextNode = pathNodes[currentNode];
+                    direction = (nextNode - currentPosition).normalized;
+                    transform.position += (Vector3)(direction * step);
+                }
             }
             else
             {
@@ -84,5 +96,11 @@ public class Player : MonoBehaviour
                 transform.position += (Vector3)(direction * step);
             }
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //TODO: SKILL ISSUE
+        Destroy(gameObject);
     }
 }
