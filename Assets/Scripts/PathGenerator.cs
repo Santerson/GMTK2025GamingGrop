@@ -6,11 +6,22 @@ public class PathGenerator : MonoBehaviour
 {
 
     [SerializeField] public List<Vector2> PathNodes = new List<Vector2>();
+    [SerializeField] private bool shouldBeCircle = true;
+    [SerializeField] private Vector2 offset = Vector2.zero; // Offset to apply to the circle center
     [SerializeField] GameObject LinePrefab; // Prefab for the line object
 
     private void Awake()
     {
-        PathNodes = DebugExtensions.DrawCircle(Vector2.zero, 3, Color.white, 64);
+        if (shouldBeCircle)
+        {
+
+            PathNodes = DebugExtensions.DrawCircle(Vector2.zero, 3, Color.white, 64);
+            for (int i = 0; i < PathNodes.Count; i++)
+            {
+                // Apply offset to each node
+                PathNodes[i] += offset;
+            }
+        }
     }
 
     // Start is called before the first frame update

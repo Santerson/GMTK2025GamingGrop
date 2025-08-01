@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private AudioSource damageSFX;
 
+    [SerializeField] private bool isControlable = true;
+
     int currentNode = 0;
     int direction = 1;
     float baseSpeed = 0f;
@@ -46,7 +48,7 @@ public class Player : MonoBehaviour
 
     void movement()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isControlable)
         {
             //inverse the direction the player is going
             direction *= -1;
@@ -60,7 +62,7 @@ public class Player : MonoBehaviour
                 currentNode = pathNodes.Count - 1;
             }
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimeLeft <= 0)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimeLeft <= 0 && isControlable)
         {
             // Dash in the current direction
             speed += dashIncrease; // Increase speed for dashing
