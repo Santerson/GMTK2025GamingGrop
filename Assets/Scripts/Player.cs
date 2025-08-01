@@ -15,6 +15,11 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject shield;
 
     [SerializeField] private AudioSource damageSFX;
+    [SerializeField] private AudioSource dashSFX;
+    [SerializeField] private AudioSource shieldbreakSFX;
+    [SerializeField] private AudioSource turnSFX;
+    [SerializeField] private AudioSource deathSFX;
+    [SerializeField] private AudioSource PowerupSFX;
 
     [SerializeField] private bool isControlable = true;
 
@@ -50,6 +55,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && isControlable)
         {
+            turnSFX.Play();
             //inverse the direction the player is going
             direction *= -1;
             currentNode += direction;
@@ -66,6 +72,7 @@ public class Player : MonoBehaviour
         {
             // Dash in the current direction
             speed += dashIncrease; // Increase speed for dashing
+            dashSFX.Play();
             StartCoroutine(Dash());
         }
         if (dashCooldownTimeLeft > 0)
@@ -151,14 +158,17 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("SpeedPowerup"))
         {
+            PowerupSFX.Play();
             collision.GetComponent<SpeedPowerup>().activate();
         }
         else if (collision.CompareTag("NukePowerup"))
         {
+            PowerupSFX.Play();
             collision.GetComponent<screennukepowerup>().activate();
         }
         else if (collision.CompareTag("ShieldPowerup"))
         {
+            PowerupSFX.Play();
             Destroy(collision.transform.parent.gameObject);
             shieldDuration = 15;
             shield.SetActive(true);
@@ -169,6 +179,7 @@ public class Player : MonoBehaviour
             if (shieldDuration <= 0)
             {
                 //TODO: SKILL ISSUE
+                deathSFX.Play();
                 Destroy(gameObject);
 
             }
@@ -176,6 +187,7 @@ public class Player : MonoBehaviour
             {
                 shieldDuration = 0;
                 shield.SetActive(false);
+                shieldbreakSFX.Play();
                 Destroy(collision.transform.parent.gameObject);
             }
         }
