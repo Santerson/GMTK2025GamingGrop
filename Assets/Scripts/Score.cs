@@ -12,6 +12,7 @@ public class Score : MonoBehaviour
     [SerializeField] GameObject phaseIncreaseEffect = null;
 
     [SerializeField] LineRenderer progressBar;
+    [SerializeField] AudioSource nextStageSFX;
 
     int pastPhaseThresholdCount = 0;
 
@@ -30,6 +31,7 @@ public class Score : MonoBehaviour
             progressToNextPhase = 0;
             phaseThreshold += phaseIncreaseRate;
             Instantiate(phaseIncreaseEffect, Vector2.zero, Quaternion.identity);
+            nextStageSFX.Play();
         }
         progressBar.SetPosition(0, new Vector2(-9f,0f));
         float progress = Mathf.Clamp01(progressToNextPhase / phaseThreshold);

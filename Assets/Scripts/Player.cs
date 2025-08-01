@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f; // Speed of the player movement
+    [SerializeField] private float speed = 3f; // Speed of the player movement
     List<Vector2> pathNodes = new List<Vector2>(); // List to hold path nodes
 
-    [SerializeField] private float dashSpeed = 7f;
+    [SerializeField] private float dashIncrease = 8f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f; // Cooldown time for dashing
+    [SerializeField] private float shieldDuration = 15f;
     [SerializeField] private LineRenderer cooldownLine = null;
+    [SerializeField] GameObject shield;
+
+    [SerializeField] private AudioSource damageSFX;
 
     int currentNode = 0;
     int direction = 1;
@@ -23,10 +27,24 @@ public class Player : MonoBehaviour
         pathNodes = FindObjectOfType<PathGenerator>().PathNodes; // Get the path nodes from the PathGenerator
         transform.position = pathNodes[0];
         baseSpeed = speed; // Store the base speed for dashing  
+        shield.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
+    {
+        movement();
+        if (shieldDuration >= 0)
+        {
+            shieldDuration -= Time.deltaTime;
+        }
+        else
+        {
+            shield.SetActive(false);
+        }
+    }
+
+    void movement()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -45,7 +63,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimeLeft <= 0)
         {
             // Dash in the current direction
-            speed = dashSpeed; // Increase speed for dashing
+            speed += dashIncrease; // Increase speed for dashing
             StartCoroutine(Dash());
         }
         if (dashCooldownTimeLeft > 0)
@@ -78,7 +96,7 @@ public class Player : MonoBehaviour
     IEnumerator Dash()
     {
         yield return new WaitForSeconds(dashDuration);
-        speed = baseSpeed; // Reset speed after dashing
+        speed -= dashIncrease; // Reset speed after dashing
         dashCooldownTimeLeft = dashCooldown; // Start cooldown
     }
 
@@ -129,7 +147,50 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //TODO: SKILL ISSUE
-        Destroy(gameObject);
+        if (collision.CompareTag("SpeedPowerup"))
+        {
+            collision.GetComponent<SpeedPowerup>().activate();
+        }
+        else if (collision.CompareTag("NukePowerup"))
+        {
+            collision.GetComponent<screennukepowerup>().activate();
+        }
+        else if (collision.CompareTag("ShieldPowerup"))
+        {
+            Destroy(collision.transform.parent.gameObject);
+            shieldDuration = 15;
+            shield.SetActive(true);
+        }
+        else
+        {
+            damageSFX.Play();
+            if (shieldDuration <= 0)
+            {
+                //TODO: SKILL ISSUE
+                Destroy(gameObject);
+
+            }
+            else
+            {
+                shieldDuration = 0;
+                shield.SetActive(false);
+                Destroy(collision.transform.parent.gameObject);
+            }
+        }
+    }
+
+    float tempSpeedUp = 0;
+    public void temporarySpeedUp(float speed, float duration)
+    {
+        tempSpeedUp += speed;
+        this.speed += speed;
+        StartCoroutine(temporarySpeedUpDuration(duration));
+    }
+
+    IEnumerator temporarySpeedUpDuration(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        speed -= tempSpeedUp;
+        tempSpeedUp = 0;
     }
 }

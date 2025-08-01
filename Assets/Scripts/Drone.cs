@@ -10,6 +10,8 @@ public class Drone : MonoBehaviour
     [Tooltip("where x is the minimum time and y is the maximum time (seconds)")]
     [SerializeField] Vector2 interval = new Vector2(1, 2);
     [SerializeField] float projectileSpeed;
+    [SerializeField] AudioSource shootSFX;
+
 
     float timeUntilShot = 0;
     float nextShotInterval;
@@ -62,6 +64,7 @@ public class Drone : MonoBehaviour
 
             //fire!!!
             refProjectile.GetComponentInChildren<Rigidbody2D>().AddForce(direction.normalized * projectileSpeed, ForceMode2D.Impulse);
+            shootSFX.Play();
         }
     }
 }

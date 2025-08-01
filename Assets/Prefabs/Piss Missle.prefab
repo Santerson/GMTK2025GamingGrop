@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 1392108511282665211}
   - component: {fileID: 3173700303114681297}
   - component: {fileID: 1163636431098988152}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Piss Missle
   m_TagString: Destroyable
   m_Icon: {fileID: 0}
@@ -268,8 +268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88dd5baafa15eff4b8fb4b2b41253643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  delay: 2
 --- !u!1 &8662900128608295683
 GameObject:
   m_ObjectHideFlags: 0

@@ -56,6 +56,12 @@ public class ObstacleGenerator : MonoBehaviour
     [SerializeField] private float pissMissleLaunchDelayMin = 0.5f;
     [SerializeField] private float pissMissleMultipleIncreaseAngle = 30f;
 
+    [Header("Powerups")]
+    [Tooltip("Powerups will appear some random time inbetween these two. x is min, y is max (seconds)")]
+    [SerializeField] private Vector2 PowerupInvervalRange = new Vector2(15, 30);
+    [SerializeField] private Vector2 PowerupSpeed = new Vector2(10, 20);
+    [SerializeField] private List<GameObject> PowerupPrefabs;
+
     [Header("MSC.")]
     [SerializeField] private float spawnDistanceOffsetX = 10f;
     [SerializeField] private float spawnDistanceOffsetY = 6f;
@@ -65,12 +71,67 @@ public class ObstacleGenerator : MonoBehaviour
     float lazerTimeLeft = 5f;
     float droneTimeLeft = 2f;
     float pissMissleTimeLeft = 2f;
+    float timeUntilNextPowerup = 15f;
 
     public bool lazerUp = false;
     public int phase = 1;
 
     // Update is called once per frame
     void Update()
+    {
+        SpawnHazards();
+        SpawnPowerups();
+    }
+
+    void SpawnPowerups()
+    {
+        timeUntilNextPowerup -= Time.deltaTime;
+        if (timeUntilNextPowerup <= 0)
+        {
+            timeUntilNextPowerup = Random.Range(PowerupInvervalRange.x, PowerupInvervalRange.y);
+            SpawnAnyPowerup();
+        }
+    }
+
+    void SpawnAnyPowerup()
+    {
+        //When we add new powerups, we would randomly pick one to instantiate
+        GameObject powerupPrefab = PowerupPrefabs[Random.Range(0, PowerupPrefabs.Count)];
+        float side = Random.Range(1, 5);
+        GameObject prefab;
+        if (side == 1)
+        {
+            // spawn from the left side
+            Vector2 spawnPosition = new Vector3(-spawnDistanceOffsetX, Random.Range(-spawnDistanceOffsetY, spawnDistanceOffsetY));
+            prefab = Instantiate(powerupPrefab, spawnPosition, Quaternion.identity);
+            prefab.GetComponentInChildren<Rigidbody2D>().AddForce(spawnPosition.normalized * -Random.Range(PowerupSpeed.x, PowerupSpeed.y), ForceMode2D.Impulse);
+        }
+        else if (side == 2)
+        {
+            // spawn from the right side
+            Vector2 spawnPosition = new Vector3(spawnDistanceOffsetX, Random.Range(-spawnDistanceOffsetY, spawnDistanceOffsetY));
+            prefab = Instantiate(powerupPrefab, spawnPosition, Quaternion.identity);
+            prefab.GetComponentInChildren<Rigidbody2D>().AddForce(spawnPosition.normalized * -Random.Range(PowerupSpeed.x, PowerupSpeed.y), ForceMode2D.Impulse);
+
+        }
+        else if (side == 3)
+        {
+            // spawn from the top side
+            Vector2 spawnPosition = new Vector3(Random.Range(-spawnDistanceOffsetX, spawnDistanceOffsetX), spawnDistanceOffsetY);
+            prefab = Instantiate(powerupPrefab, spawnPosition, Quaternion.identity);
+            prefab.GetComponentInChildren<Rigidbody2D>().AddForce(spawnPosition.normalized * -Random.Range(PowerupSpeed.x, PowerupSpeed.y   ), ForceMode2D.Impulse);
+        }
+        else
+        {
+            // spawn from the bottom side
+            Vector2 spawnPosition = new Vector3(Random.Range(-spawnDistanceOffsetX, spawnDistanceOffsetX), -spawnDistanceOffsetY);
+            prefab = Instantiate(powerupPrefab, spawnPosition, Quaternion.identity);
+            prefab.GetComponentInChildren<Rigidbody2D>().AddForce(spawnPosition.normalized * -Random.Range(PowerupSpeed.x, PowerupSpeed.y), ForceMode2D.Impulse);
+
+        }
+    }
+
+    void SpawnHazards()
     {
         //spawn Asteroid Code
         asteroidTimeLeft -= Time.deltaTime;
@@ -105,7 +166,7 @@ public class ObstacleGenerator : MonoBehaviour
         }
 
         //spawn drones
-        if(phase >= droneSpawnPhase)
+        if (phase >= droneSpawnPhase)
         {
             droneTimeLeft -= Time.deltaTime;
             if (droneTimeLeft < 0)

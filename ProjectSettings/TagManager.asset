@@ -5,11 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Destroyable
+  - SpeedPowerup
+  - NukePowerup
+  - ShieldPowerup
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
   - 

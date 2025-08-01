@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7905225547344876880}
   - component: {fileID: 8841623817959189695}
   - component: {fileID: 3598174987359026242}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Square
   m_TagString: Destroyable
   m_Icon: {fileID: 0}
