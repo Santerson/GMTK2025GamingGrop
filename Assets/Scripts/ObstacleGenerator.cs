@@ -75,10 +75,18 @@ public class ObstacleGenerator : MonoBehaviour
 
     public bool lazerUp = false;
     public int phase = 1;
+    public bool frozen = false;
+    List<GameObject> frozenObjs = new List<GameObject>();
+    List<Vector2> frozenObjsVelocity = new List<Vector2>();
+    List<float> frozenObjsRotation = new List<float>();
 
     // Update is called once per frame
     void Update()
     {
+        if (frozen)
+        {
+            return;
+        }
         SpawnHazards();
         SpawnPowerups();
     }
@@ -119,7 +127,7 @@ public class ObstacleGenerator : MonoBehaviour
             // spawn from the top side
             Vector2 spawnPosition = new Vector3(Random.Range(-spawnDistanceOffsetX, spawnDistanceOffsetX), spawnDistanceOffsetY);
             prefab = Instantiate(powerupPrefab, spawnPosition, Quaternion.identity);
-            prefab.GetComponentInChildren<Rigidbody2D>().AddForce(spawnPosition.normalized * -Random.Range(PowerupSpeed.x, PowerupSpeed.y   ), ForceMode2D.Impulse);
+            prefab.GetComponentInChildren<Rigidbody2D>().AddForce(spawnPosition.normalized * -Random.Range(PowerupSpeed.x, PowerupSpeed.y), ForceMode2D.Impulse);
         }
         else
         {
@@ -299,7 +307,7 @@ public class ObstacleGenerator : MonoBehaviour
         }
 
         GameObject refDrone = Instantiate(dronePrefab, new Vector2((droneSpawnDistanceFromMiddle + Random.Range(0, droneSpawnRange)) * side, spawnDistanceOffsetY), Quaternion.identity);
-        refDrone.GetComponentInChildren<Rigidbody2D>().AddForce(new Vector2(0,-droneMoveSpeed), ForceMode2D.Impulse);
+        refDrone.GetComponentInChildren<Rigidbody2D>().AddForce(new Vector2(0, -droneMoveSpeed), ForceMode2D.Impulse);
     }
 
     public void RaisePhase()
@@ -312,7 +320,7 @@ public class ObstacleGenerator : MonoBehaviour
         {
             asteroidSpawnInterval = asteroidSpawnMin;
         }
-        
+
         //decrease the lazer spawn rate
         if (phase >= lazerSpawnPhase + 1)
         {
@@ -358,6 +366,55 @@ public class ObstacleGenerator : MonoBehaviour
                 pissMissleLaunchDelay = pissMissleLaunchDelayMin;
             }
         }
+    }
+
+    public void freeze()
+    {
+        frozen = true;
+        GameObject[] objs = FindObjectsOfType<GameObject>();
+        foreach (GameObject obj in objs)
+        {
+            if (obj.CompareTag("Destroyable") || obj.CompareTag("SpeedPowerup") || obj.CompareTag("NukePowerup") || obj.CompareTag("ShieldPowerup") || obj.CompareTag("GIANTFUCKOFFLAZER"))
+            {
+                frozenObjs.Add(obj);
+                Rigidbody2D rb = obj.GetComponentInChildren<Rigidbody2D>();
+                frozenObjsVelocity.Add(rb.velocity);
+                frozenObjsRotation.Add(rb.angularVelocity);
+                rb.velocity = Vector2.zero;
+                rb.angularVelocity = 0;
+            } 
+        }
+    }
+
+    public void thaw()
+    {
+        frozen = false;
+        for (int i = 0; i < frozenObjs.Count; i++)
+        {
+            try
+            {
+
+
+                GameObject obj = frozenObjs[i];
+                Rigidbody2D rb = obj.GetComponentInChildren<Rigidbody2D>();
+                rb.AddForce(frozenObjsVelocity[i], ForceMode2D.Impulse);
+                rb.AddTorque(frozenObjsRotation[i]);
+            }
+            catch
+            {
+                try
+                {
+                    Destroy(frozenObjs[i]);
+                }
+                catch
+                {
+
+                }
+            }
+        }
+        frozenObjs = new List<GameObject>();
+        frozenObjsVelocity = new List<Vector2>();
+        frozenObjsRotation = new List<float>();
     }
 
 }

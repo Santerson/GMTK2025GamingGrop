@@ -13,6 +13,6 @@ public class SceneChanger : MonoBehaviour
     public void SetMainMenu()
     {
         // Load the main menu scene
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
     }
 }

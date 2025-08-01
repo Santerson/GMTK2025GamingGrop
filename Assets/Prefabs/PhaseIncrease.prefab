@@ -163,7 +163,7 @@ RectTransform:
   m_GameObject: {fileID: 3559599274404097014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.018954981, y: 0.018954981, z: 0.018954981}
+  m_LocalScale: {x: 0.02621474, y: 0.02621474, z: 0.02621474}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8830354176337844522}
@@ -203,8 +203,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: STAGE x
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -357,7 +357,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.022012413, g: 1, b: 0.21529622, a: 0.22352941}
+  m_Color: {r: 0.02352941, g: 1, b: 0.9286511, a: 0.22352941}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

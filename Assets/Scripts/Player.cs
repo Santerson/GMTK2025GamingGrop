@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
     float baseSpeed = 0f;
     float dashCooldownTimeLeft = 0f;
 
+    bool halted = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,11 +37,26 @@ public class Player : MonoBehaviour
         transform.position = pathNodes[0];
         baseSpeed = speed; // Store the base speed for dashing  
         shield.SetActive(false);
+        try
+        {
+            playerColor script = FindObjectOfType<playerColor>();
+            SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+            renderer.color = new Color(script.r/256f, script.g/256f, script.b/256f);
+        }
+        catch
+        {
+            Debug.LogError("an error occured. May have happened becasue you started from this scene. \n if so, ignore this.");
+            GetComponent<SpriteRenderer>().color = Color.white;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (halted)
+        {
+            return;
+        }
         movement();
         if (shieldDuration >= 0)
         {
@@ -112,6 +129,10 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     { 
+        if (halted)
+        {
+            return;
+        }
         //move the player speed distance on the line they are currently on
         if (pathNodes.Count > 0)
         {
@@ -180,8 +201,7 @@ public class Player : MonoBehaviour
             if (shieldDuration <= 0)
             {
                 //TODO: SKILL ISSUE
-                deathSFX.Play();
-                Destroy(gameObject);
+                death();
                 FindObjectOfType<Score>().OnPlayerDeath();
 
             }
@@ -193,6 +213,24 @@ public class Player : MonoBehaviour
                 Destroy(collision.transform.parent.gameObject);
             }
         }
+    }
+
+    void death()
+    {
+        //freeze everything
+        FindObjectOfType<ObstacleGenerator>().freeze();
+        halted = true;
+        StartCoroutine(haltDeath());
+    }
+
+    IEnumerator haltDeath()
+    {
+        yield return new WaitForSeconds(1f);
+        FindObjectOfType<ObstacleGenerator>().thaw();
+        deathSFX.Play();
+        FindObjectOfType<DeathScript>().Death();
+        Destroy(gameObject);
+
     }
 
     float tempSpeedUp = 0;

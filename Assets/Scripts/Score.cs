@@ -15,9 +15,9 @@ public class Score : MonoBehaviour
     [SerializeField] AudioSource newHighscoreSFX;
 
     int pastPhaseThresholdCount = 0;
-    float score = 0;
+    public float score = 0;
     float progressToNextPhase = 0;
-    float highscore = 0;
+    public float highscore = 0;
     bool isNewHighscore = false;
     bool isGameOver = false;
 
