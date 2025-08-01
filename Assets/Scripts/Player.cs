@@ -181,6 +181,7 @@ public class Player : MonoBehaviour
                 //TODO: SKILL ISSUE
                 deathSFX.Play();
                 Destroy(gameObject);
+                FindObjectOfType<Score>().OnPlayerDeath();
 
             }
             else
