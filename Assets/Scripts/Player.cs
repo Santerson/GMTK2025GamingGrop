@@ -73,6 +73,7 @@ public class Player : MonoBehaviour
             // Dash in the current direction
             speed += dashIncrease; // Increase speed for dashing
             dashSFX.Play();
+            dashCooldownTimeLeft = 100f;
             StartCoroutine(Dash());
         }
         if (dashCooldownTimeLeft > 0)
