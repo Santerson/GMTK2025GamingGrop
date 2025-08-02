@@ -49,19 +49,27 @@ public class Player : MonoBehaviour
         {
             playerColor script = FindObjectOfType<playerColor>();
             SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-            renderer.color = new Color(script.r/256f, script.g/256f, script.b/256f);
+            renderer.color = new Color(script.r / 256f, script.g / 256f, script.b / 256f);
         }
         catch
         {
             Debug.LogError("an error occured. May have happened becasue you started from this scene. \n if so, ignore this.");
             GetComponent<SpriteRenderer>().color = Color.white;
         }
-        halted = true;
-        cooldownLine.enabled = false;
-        FindObjectOfType<ObstacleGenerator>().freeze();
-        FindObjectOfType<Score>().stopCounting = true;
-        refUI = Instantiate(preGameUI, Vector2.zero, Quaternion.identity);
-        GameUI.SetActive(false);
+        try
+        {
+            halted = true;
+            cooldownLine.enabled = false;
+            FindObjectOfType<ObstacleGenerator>().freeze();
+            FindObjectOfType<Score>().stopCounting = true;
+            refUI = Instantiate(preGameUI, Vector2.zero, Quaternion.identity);
+            GameUI.SetActive(false);
+        }
+        catch
+        {
+            halted = false;
+            started = true;
+        }
     }
 
     // Update is called once per frame
