@@ -21,6 +21,7 @@ public class MapSelectButtons : MonoBehaviour
     private void OnMouseExit()
     {
         mouseover = false;
+        transform.localScale = scale;
     }
     private void OnMouseDown()
     {
@@ -30,19 +31,30 @@ public class MapSelectButtons : MonoBehaviour
         {
             chosenMap.changeMap(points, map);
         }
+        FindObjectOfType<CodeCaller>().PlayClick();
     }
 
     private void Update()
     {
         try
         {
-            if (FindObjectOfType<ChosenMap>().map == map && !mouseover)
+            if (FindObjectOfType<ChosenMap>().map == map)
             {
-                transform.localScale = scale * 1.1f;
+                SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
+                for (int i = 0; i < renderers.Length; i++)
+                {
+                    renderers[i].color = new Color(0.654088f, 0.654088f, 0.654088f, 1); // Highlight color
+                }
+                GetComponent<SpriteRenderer>().color = new Color(0.654088f, 0.654088f, 0.654088f, 1); // Highlight color
             }
             else if (!mouseover)
             {
-                transform.localScale = scale;
+                SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
+                for (int i = 0; i < renderers.Length; i++)
+                {
+                    renderers[i].color = Color.white; // Highlight color
+                }
+                GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
         catch

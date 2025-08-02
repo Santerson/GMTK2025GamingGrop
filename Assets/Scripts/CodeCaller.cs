@@ -22,4 +22,26 @@ public class CodeCaller : MonoBehaviour
 
         }
     }
+
+    public void PlayClick()
+    {
+        try
+        {
+            GameObject.Find("Clicksfx").GetComponent<AudioSource>().Play();
+        }
+        catch
+        {
+            Debug.LogError("Click SFX not found!");
+        }
+    }
+
+    public void ChangeMusicVol(float f)
+    {
+        FindObjectOfType<SettingsManager>().changeMusicVolume(f);
+    }
+
+    public void ChangeSfxVol(float f)
+    {
+        FindObjectOfType<SettingsManager>().changeSfxVolume(f);
+    }
 }

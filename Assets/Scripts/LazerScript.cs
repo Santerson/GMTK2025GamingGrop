@@ -44,6 +44,7 @@ public class LazerScript : MonoBehaviour
         }
         if (isLazerUp)
         {
+            transform.position = Vector3.MoveTowards(transform.position, Vector2.zero, 5);
             refCollider.enabled = true;
             upTime -= Time.deltaTime;
             if (upTime <= 0f)
@@ -106,7 +107,8 @@ public class LazerScript : MonoBehaviour
             Destroy(lessRightLine);
             Destroy(farRightLine);
             GetComponent<SpriteRenderer>().enabled = true;
-            //lazerUpSFX.Play();
+            GetComponent<Animator>().enabled = true;
+            lazerUpSFX.Play();
         }
     }
 

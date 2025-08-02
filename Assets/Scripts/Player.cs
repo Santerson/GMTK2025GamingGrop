@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject shield;
     [SerializeField] private GameObject preGameUI;
     [SerializeField] private GameObject GameUI;
+    [SerializeField] GameObject mainCamera;
+    [SerializeField] private GameObject deathCamera;
 
     [SerializeField] private AudioSource damageSFX;
     [SerializeField] private AudioSource dashSFX;
@@ -265,7 +267,11 @@ public class Player : MonoBehaviour
     IEnumerator haltDeath()
     {
         yield return new WaitForSeconds(1f);
-        FindObjectOfType<ObstacleGenerator>().thaw();
+        if (started)
+        {
+
+            FindObjectOfType<ObstacleGenerator>().thaw();   
+        }
         deathSFX.Play();
         FindObjectOfType<DeathScript>().Death();
         Destroy(gameObject);
