@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class pausemenu : MonoBehaviour
 {
-    bool gamePaused = false;
+    public bool gamePaused = false;
     // Update is called once per frame
+    [SerializeField] GameObject deathwindow;
+    GameObject refWindow;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !FindObjectOfType<Player>().dying && !gamePaused)
@@ -25,14 +27,19 @@ public class pausemenu : MonoBehaviour
         FindObjectOfType<Player>().halted = true;
         FindObjectOfType<Score>().stopCounting = true;
         gamePaused = true;
+        refWindow = Instantiate(deathwindow, Vector2.zero, Quaternion.identity);
     }
     
-    void unPause()
+    public void unPause()
     {
         //TODO: Unpause
-        FindObjectOfType<ObstacleGenerator>().thaw();
-        FindObjectOfType<Player>().halted = false;
-        FindObjectOfType<Score>().stopCounting = false;
+        if (FindObjectOfType<Player>().started)
+        {
+            FindObjectOfType<ObstacleGenerator>().thaw();
+            FindObjectOfType<Player>().halted = false;
+            FindObjectOfType<Score>().stopCounting = false;
+        }
         gamePaused = false;
+        Destroy(refWindow);
     }
 }

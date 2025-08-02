@@ -10,6 +10,7 @@ public class Score : MonoBehaviour
     [SerializeField] int phaseThreshold = 10;
     [SerializeField] int phaseIncreaseRate = 10;
     [SerializeField] GameObject phaseIncreaseEffect = null;
+    [SerializeField] GameObject gameStartEffect = null;
     [SerializeField] LineRenderer progressBar;
     [SerializeField] AudioSource nextStageSFX;
     [SerializeField] AudioSource newHighscoreSFX;
@@ -21,16 +22,24 @@ public class Score : MonoBehaviour
     bool isNewHighscore = false;
     bool isGameOver = false;
     public bool stopCounting = false;
+    bool shownStart = false;
 
     void Start()
     {
         highscore = PlayerPrefs.GetFloat("Highscore", 0);
+        text.text = "Time: 0";
         UpdateHighscoreText();
     }
 
     void Update()
     {
         if (isGameOver || stopCounting) return;
+
+        if (!shownStart)
+        {
+            Instantiate(gameStartEffect, Vector2.zero, Quaternion.identity);
+            shownStart = true;
+        }
 
         score += Time.deltaTime;
         progressToNextPhase += Time.deltaTime;

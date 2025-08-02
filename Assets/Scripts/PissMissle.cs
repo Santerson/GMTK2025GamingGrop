@@ -15,6 +15,15 @@ public class PissMissle : MonoBehaviour
 
     private void Start()
     {
+        
+        speed = FindObjectOfType<ObstacleGenerator>().pissMissleSpeed;
+        delay = FindObjectOfType<ObstacleGenerator>().pissMissleLaunchDelay;
+        telegraphSFX.Play();
+        StartCoroutine(delayLaunch());
+    }
+
+    private void Update()
+    {
         if (FindObjectOfType<ObstacleGenerator>().frozen)
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -23,10 +32,6 @@ public class PissMissle : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().AddForce(transform.position.normalized * -speed, ForceMode2D.Impulse);
         }
-        speed = FindObjectOfType<ObstacleGenerator>().pissMissleSpeed;
-        delay = FindObjectOfType<ObstacleGenerator>().pissMissleLaunchDelay;
-        telegraphSFX.Play();
-        StartCoroutine(delayLaunch());
     }
 
     IEnumerator delayLaunch()

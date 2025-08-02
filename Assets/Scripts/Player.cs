@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float shieldDuration = 15f;
     [SerializeField] private LineRenderer cooldownLine = null;
     [SerializeField] GameObject shield;
+    [SerializeField] private GameObject preGameUI;
+    [SerializeField] private GameObject GameUI;
 
     [SerializeField] private AudioSource damageSFX;
     [SerializeField] private AudioSource dashSFX;
@@ -31,7 +33,10 @@ public class Player : MonoBehaviour
     float dashCooldownTimeLeft = 0f;
 
     public bool halted = false;
+    public bool started = false;
     public bool dying = false;
+
+    GameObject refUI = null;
 
     // Start is called before the first frame update
     void Start()
@@ -51,11 +56,27 @@ public class Player : MonoBehaviour
             Debug.LogError("an error occured. May have happened becasue you started from this scene. \n if so, ignore this.");
             GetComponent<SpriteRenderer>().color = Color.white;
         }
+        halted = true;
+        cooldownLine.enabled = false;
+        FindObjectOfType<ObstacleGenerator>().freeze();
+        FindObjectOfType<Score>().stopCounting = true;
+        refUI = Instantiate(preGameUI, Vector2.zero, Quaternion.identity);
+        GameUI.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (started == false && Input.GetKeyDown(KeyCode.Space) && !FindObjectOfType<pausemenu>().gamePaused)
+        {
+            started = true;
+            halted = false;
+            cooldownLine.enabled = true;
+            FindObjectOfType<ObstacleGenerator>().thaw();
+            FindObjectOfType<Score>().stopCounting = false;
+            Destroy(refUI);
+            GameUI.SetActive(true);
+        }
         if (halted)
         {
             return;
@@ -205,8 +226,7 @@ public class Player : MonoBehaviour
             {
                 //TODO: SKILL ISSUE
                 death();
-                dying = true;
-                FindObjectOfType<Score>().OnPlayerDeath();
+                
 
             }
             else
@@ -224,8 +244,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    void death()
+    public void death()
     {
+        dying = true;
+        FindObjectOfType<Score>().OnPlayerDeath();
         //freeze everything
         FindObjectOfType<ObstacleGenerator>().freeze();
         halted = true;
