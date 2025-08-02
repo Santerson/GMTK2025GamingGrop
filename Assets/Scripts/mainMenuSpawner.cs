@@ -17,7 +17,7 @@ public class mainMenuSpawner : MonoBehaviour
         {
             timeUntilSpawn = spawnrate;
             GameObject prefab;
-            Vector2 spawnPosition = new Vector3(Random.Range(-9, 9), 5);
+            Vector2 spawnPosition = new Vector3(Random.Range(-9, 9), 6);
             prefab = Instantiate(spawnObj, spawnPosition, Quaternion.identity);
             prefab.GetComponentInChildren<Rigidbody2D>().AddForce(Vector2.up * -Random.Range(1, 2), ForceMode2D.Impulse);
             prefab.GetComponentInChildren<Rigidbody2D>().AddTorque(Random.Range(-20, 20));

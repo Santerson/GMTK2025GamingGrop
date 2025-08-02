@@ -72,10 +72,9 @@ public class ObstacleGenerator : MonoBehaviour
     float droneTimeLeft = 2f;
     float pissMissleTimeLeft = 2f;
     float timeUntilNextPowerup = 15f;
-
-    public bool lazerUp = false;
+    [HideInInspector] public bool lazerUp = false;
     public int phase = 1;
-    public bool frozen = false;
+    [HideInInspector]public bool frozen = false;
     List<GameObject> frozenObjs = new List<GameObject>();
     List<Vector2> frozenObjsVelocity = new List<Vector2>();
     List<float> frozenObjsRotation = new List<float>();

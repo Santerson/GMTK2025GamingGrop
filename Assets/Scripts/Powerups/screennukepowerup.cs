@@ -11,8 +11,13 @@ public class screennukepowerup : MonoBehaviour
         {
             if (obj.layer == LayerMask.NameToLayer("Enemy"))
             {
+                if (obj.CompareTag("GIANTFUCKOFFLAZER"))
+                {
+                    FindObjectOfType<ObstacleGenerator>().lazerUp = false;
+                }
                 Destroy(obj.transform.parent.gameObject);
             }
+
         }
         Destroy(transform.parent.gameObject);
     }

@@ -20,6 +20,7 @@ public class Score : MonoBehaviour
     public float highscore = 0;
     bool isNewHighscore = false;
     bool isGameOver = false;
+    public bool stopCounting = false;
 
     void Start()
     {
@@ -29,7 +30,7 @@ public class Score : MonoBehaviour
 
     void Update()
     {
-        if (isGameOver) return;
+        if (isGameOver || stopCounting) return;
 
         score += Time.deltaTime;
         progressToNextPhase += Time.deltaTime;

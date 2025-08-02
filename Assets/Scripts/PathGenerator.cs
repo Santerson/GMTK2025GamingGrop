@@ -10,11 +10,33 @@ public class PathGenerator : MonoBehaviour
     [SerializeField] private Vector2 offset = Vector2.zero; // Offset to apply to the circle center
     [SerializeField] GameObject LinePrefab; // Prefab for the line object
 
+    [SerializeField] GameObject map1bg;
+    [SerializeField] GameObject map2bg;
+    [SerializeField] GameObject map3bg;
+    [SerializeField] GameObject map4bg;
+    [SerializeField] GameObject map5bg;
+    [SerializeField] GameObject map6bg;
+
+    int map = 1;
+
     private void Awake()
     {
+        try
+        {
+            PathNodes = FindObjectOfType<ChosenMap>().points; // Get the points from the ChosenMap script
+            if (PathNodes == null || PathNodes.Count == 0)
+            {
+                shouldBeCircle = true; // If no points are set, default to drawing a circle
+            }
+            map = FindObjectOfType<ChosenMap>().map;
+        }
+        catch
+        {
+            shouldBeCircle = true;
+            Debug.LogWarning("Could not find a map. defaulting to a circle. If you are starting the game from this scene, this is normal.");
+        }
         if (shouldBeCircle)
         {
-
             PathNodes = DebugExtensions.DrawCircle(Vector2.zero, 3, Color.white, 64);
             for (int i = 0; i < PathNodes.Count; i++)
             {
@@ -27,7 +49,37 @@ public class PathGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        try
+        {
+            if (map == 1)
+            {
+                map1bg.SetActive(true);
+            }
+            else if (map == 2)
+            {
+                map2bg.SetActive(true);
+            }
+            else if (map == 3)
+            {
+                map3bg.SetActive(true);
+            }
+            else if (map == 4)
+            {
+                map4bg.SetActive(true);
+            }
+            else if (map == 5)
+            {
+                map5bg.SetActive(true);
+            }
+            else if (map == 6)
+            {
+                map6bg.SetActive(true);
+            }
+        }
+        catch
+        {
+            Debug.LogWarning("No map found. if this is on the main menu, this is normal.");
+        }
         //Instantiate a line object between every point
         for (int i = 0; i < PathNodes.Count - 1; i++)
         {

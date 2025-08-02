@@ -12,7 +12,6 @@ public class Drone : MonoBehaviour
     [SerializeField] float projectileSpeed;
     [SerializeField] AudioSource shootSFX;
 
-
     float timeUntilShot = 0;
     float nextShotInterval;
     GameObject player = null;
@@ -36,6 +35,7 @@ public class Drone : MonoBehaviour
         {
             return;
         }
+        //face the player
         Vector2 direction = player.transform.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -48,6 +48,10 @@ public class Drone : MonoBehaviour
             return;
         }
         if (player == null)
+        {
+            return;
+        }
+        if (FindObjectOfType<ObstacleGenerator>().frozen)
         {
             return;
         }

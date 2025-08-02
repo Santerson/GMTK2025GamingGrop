@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource turnSFX;
     [SerializeField] private AudioSource deathSFX;
     [SerializeField] private AudioSource PowerupSFX;
+    [SerializeField] private AudioSource screennukesfx;
 
     [SerializeField] private bool isControlable = true;
 
@@ -28,7 +30,8 @@ public class Player : MonoBehaviour
     float baseSpeed = 0f;
     float dashCooldownTimeLeft = 0f;
 
-    bool halted = false;
+    public bool halted = false;
+    public bool dying = false;
 
     // Start is called before the first frame update
     void Start()
@@ -185,7 +188,7 @@ public class Player : MonoBehaviour
         }
         else if (collision.CompareTag("NukePowerup"))
         {
-            PowerupSFX.Play();
+            screennukesfx.Play();
             collision.GetComponent<screennukepowerup>().activate();
         }
         else if (collision.CompareTag("ShieldPowerup"))
@@ -202,6 +205,7 @@ public class Player : MonoBehaviour
             {
                 //TODO: SKILL ISSUE
                 death();
+                dying = true;
                 FindObjectOfType<Score>().OnPlayerDeath();
 
             }
@@ -210,7 +214,12 @@ public class Player : MonoBehaviour
                 shieldDuration = 0;
                 shield.SetActive(false);
                 shieldbreakSFX.Play();
+                if (collision.CompareTag("GIANTFUCKOFFLAZER"))
+                {
+                    FindObjectOfType<ObstacleGenerator>().lazerUp = false;
+                }
                 Destroy(collision.transform.parent.gameObject);
+                
             }
         }
     }
