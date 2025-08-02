@@ -27,6 +27,10 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource PowerupSFX;
     [SerializeField] private AudioSource screennukesfx;
 
+    [SerializeField] private GameObject deathEFX;
+    [SerializeField] private GameObject dashEFX;
+    [SerializeField] private GameObject shieldBreakEFX;
+
     [SerializeField] private bool isControlable = true;
 
     int currentNode = 0;
@@ -37,6 +41,7 @@ public class Player : MonoBehaviour
     public bool halted = false;
     public bool started = false;
     public bool dying = false;
+    bool shieldUsed = false;
 
     GameObject refUI = null;
 
@@ -96,7 +101,23 @@ public class Player : MonoBehaviour
         {
             shieldDuration -= Time.deltaTime;
         }
-        else
+        if (shieldDuration <= 0)
+        {
+            shield.SetActive(false);
+        }
+        else if (shieldDuration <= 1 && !shieldUsed)
+        {
+            shield.SetActive(true);
+        }
+        else if (shieldDuration <= 2)
+        {
+            shield.SetActive(false);
+        }
+        else if (shieldDuration <= 3)
+        {
+            shield.SetActive(true);
+        }
+        else if (shieldDuration <= 4)
         {
             shield.SetActive(false);
         }
@@ -125,6 +146,9 @@ public class Player : MonoBehaviour
             speed += dashIncrease; // Increase speed for dashing
             dashSFX.Play();
             dashCooldownTimeLeft = 100f;
+            GameObject efx = Instantiate(dashEFX, transform.position, Quaternion.identity);
+            var main = efx.GetComponentInChildren<ParticleSystem>().main;
+            main.startColor = GetComponent<SpriteRenderer>().color;
             StartCoroutine(Dash());
         }
         if (dashCooldownTimeLeft > 0)
@@ -228,6 +252,7 @@ public class Player : MonoBehaviour
             Destroy(collision.transform.parent.gameObject);
             shieldDuration = 15;
             shield.SetActive(true);
+            shieldUsed = false;
         }
         else
         {
@@ -241,14 +266,16 @@ public class Player : MonoBehaviour
             }
             else
             {
-                shieldDuration = 0;
+                shieldDuration = 1;
                 shield.SetActive(false);
+                shieldUsed = true;
                 shieldbreakSFX.Play();
                 if (collision.CompareTag("GIANTFUCKOFFLAZER"))
                 {
                     FindObjectOfType<ObstacleGenerator>().lazerUp = false;
                 }
                 Destroy(collision.transform.parent.gameObject);
+                Instantiate(shieldBreakEFX, transform.position, Quaternion.identity);
                 
             }
         }
@@ -273,6 +300,9 @@ public class Player : MonoBehaviour
             FindObjectOfType<ObstacleGenerator>().thaw();   
         }
         deathSFX.Play();
+        GameObject efx = Instantiate(deathEFX, transform.position, Quaternion.identity);
+        var main = efx.GetComponentInChildren<ParticleSystem>().main;
+        main.startColor = GetComponent<SpriteRenderer>().color;
         FindObjectOfType<DeathScript>().Death();
         Destroy(gameObject);
 

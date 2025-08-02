@@ -17,5 +17,6 @@ public class dynamicSfxVol : MonoBehaviour
     public void updateVolume()
     {
         source.volume = FindObjectOfType<SettingsManager>().sfxVolume * defaultVolume;
+
     }
 }

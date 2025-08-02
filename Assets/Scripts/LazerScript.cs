@@ -16,6 +16,9 @@ public class LazerScript : MonoBehaviour
     [SerializeField] AudioSource lazerWindupSFX;
     [SerializeField] AudioSource lazerUpSFX;
 
+    [SerializeField] ParticleSystem lazerUpEFX;
+    [SerializeField] ParticleSystem lazerWindupEFX;
+
 
     float refScale = 0f;
     bool isLazerUp = false;
@@ -109,6 +112,8 @@ public class LazerScript : MonoBehaviour
             GetComponent<SpriteRenderer>().enabled = true;
             GetComponent<Animator>().enabled = true;
             lazerUpSFX.Play();
+            lazerUpEFX.Play();
+            Destroy(lazerWindupEFX);
         }
     }
 
