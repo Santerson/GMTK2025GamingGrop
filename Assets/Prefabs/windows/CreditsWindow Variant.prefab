@@ -110,17 +110,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8637242744497368105, guid: 0f5eddedf6fad6d4790c66186d8dcd72, type: 3}
       propertyPath: m_text
-      value: 'Programmer
+      value: 'Programmers
 
-        - Santiago Caprarulo
+        - Santerson
 
-        - Giovanni Giaccardo
+        - Astil
 
 
         Art
 
         -
-        Giovanni Giaccardo
+        Astil
 
 
         Audio and Music

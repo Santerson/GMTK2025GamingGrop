@@ -5,7 +5,7 @@ using UnityEngine;
 public class dynamicMusicVol : MonoBehaviour
 {
     AudioSource source = null;
-    float defaultVolume = 1;
+    float defaultVolume = 0.5f;
 
     private void Start()
     {

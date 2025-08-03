@@ -7,6 +7,7 @@ public class pausemenu : MonoBehaviour
     public bool gamePaused = false;
     // Update is called once per frame
     [SerializeField] GameObject deathwindow;
+    [SerializeField] AudioSource bgm;
     GameObject refWindow;
     void Update()
     {
@@ -28,6 +29,7 @@ public class pausemenu : MonoBehaviour
         FindObjectOfType<Score>().stopCounting = true;
         gamePaused = true;
         refWindow = Instantiate(deathwindow, Vector2.zero, Quaternion.identity);
+        bgm.Pause();
     }
     
     public void unPause()
@@ -38,6 +40,7 @@ public class pausemenu : MonoBehaviour
             FindObjectOfType<ObstacleGenerator>().thaw();
             FindObjectOfType<Player>().halted = false;
             FindObjectOfType<Score>().stopCounting = false;
+            bgm.Play();
         }
         gamePaused = false;
         Destroy(refWindow);

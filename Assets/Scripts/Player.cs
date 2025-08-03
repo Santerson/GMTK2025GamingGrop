@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject shieldBreakEFX;
     [SerializeField] private GameObject moveEFX;
     [SerializeField] float moveEFXQuant = 3;
+    [SerializeField] private AudioSource bgm;
 
     [SerializeField] private bool isControlable = true;
 
@@ -97,6 +98,7 @@ public class Player : MonoBehaviour
             FindObjectOfType<Score>().stopCounting = false;
             Destroy(refUI);
             GameUI.SetActive(true);
+            bgm.Play();
         }
         if (halted)
         {
@@ -300,6 +302,7 @@ public class Player : MonoBehaviour
                     FindObjectOfType<ObstacleGenerator>().lazerUp = false;
                 }
                 Destroy(collision.transform.parent.gameObject);
+
                 Instantiate(shieldBreakEFX, transform.position, Quaternion.identity);
                 
             }
@@ -309,6 +312,7 @@ public class Player : MonoBehaviour
     public void death()
     {
         dying = true;
+        bgm.Stop();
         FindObjectOfType<Score>().OnPlayerDeath();
         //freeze everything
         FindObjectOfType<ObstacleGenerator>().freeze();

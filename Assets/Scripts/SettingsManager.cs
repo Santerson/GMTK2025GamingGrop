@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SettingsManager : MonoBehaviour
 {
-    public float musicVolume = 100;
-    public float sfxVolume = 100;
+    public float musicVolume = 0.5f;
+    public float sfxVolume = 0.8f;
 
     public void changeMusicVolume(float f)
     {

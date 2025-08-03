@@ -5441,6 +5441,7 @@ MonoBehaviour:
   shieldBreakEFX: {fileID: 0}
   moveEFX: {fileID: 934476611773197844, guid: 09a29dd490286894f9bd154c65b38063, type: 3}
   moveEFXQuant: 3
+  bgm: {fileID: 0}
   isControlable: 0
   halted: 0
   started: 0
@@ -6555,8 +6556,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f26c9632ce11c944ade4e26ea30f4ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicVolume: 100
-  sfxVolume: 100
+  musicVolume: 0.5
+  sfxVolume: 0.8
 --- !u!1 &1178718694
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public class dynamicSfxVol : MonoBehaviour
 {
     AudioSource source = null;
-    float defaultVolume = 1;
+    float defaultVolume = 0.8f;
 
     private void Start()
     {
