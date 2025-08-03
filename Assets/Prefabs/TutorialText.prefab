@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 1351777088867813202}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.07, y: -3.7001, z: 0}
-  m_LocalScale: {x: 10.157835, y: 2.1601686, z: 1}
+  m_LocalPosition: {x: 0.07, y: -3.5324, z: 0}
+  m_LocalScale: {x: 10.157835, y: 1.8246944, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5215595865239079228}
@@ -146,7 +146,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 7
+  m_SortingOrder: 99
   m_TargetDisplay: 0
 --- !u!114 &8403937581929191235
 MonoBehaviour:
@@ -294,7 +294,7 @@ MonoBehaviour:
     Press
     Left-shift to dash (1 sec. cooldown)
 
-    Collect powerups (cricles)'
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -646,15 +646,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Survive to progress to the next stage
+  m_text: 'Each stage makes the game harder
 
-    Each stage makes the game harder
-
-    Survive
-    as long as you can
+    Survive as long as you can
 
 
-    Press space to start'
+    Press
+    space to start'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}

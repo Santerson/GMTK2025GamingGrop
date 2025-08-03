@@ -10,7 +10,11 @@ public class SettingsManager : MonoBehaviour
     public void changeMusicVolume(float f)
     {
         musicVolume = f;
-        //repeat for music
+        dynamicMusicVol[] objs = FindObjectsOfType<dynamicMusicVol>();
+        foreach (dynamicMusicVol obj in objs)
+        {
+            obj.updateVolume();
+        }
     }
 
     public void changeSfxVolume(float f)

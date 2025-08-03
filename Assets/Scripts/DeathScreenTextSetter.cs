@@ -15,7 +15,7 @@ public class DeathScreenTextSetter : MonoBehaviour
         {
             Score score = FindObjectOfType<Score>();
             GetComponent<TextMeshProUGUI>().text = $"Final time: {(int)score.score}\nFinal Stage: {FindObjectOfType<ObstacleGenerator>().phase}";
-            highScoreText.text = "High score: " + (int)score.highscore;
+            highScoreText.text = "Longest Time: " + (int)score.highscore;
             if (score.score >= score.highscore)
             {
                 newHighScore = true;
