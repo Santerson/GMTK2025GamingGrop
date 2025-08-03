@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (started == false && Input.GetKeyDown(KeyCode.Space) && !FindObjectOfType<pausemenu>().gamePaused)
+        if (started == false && Input.GetKeyDown(KeyCode.Space) && !FindObjectOfType<pausemenu>().gamePaused && !dying)
         {
             started = true;
             halted = false;
@@ -314,6 +314,15 @@ public class Player : MonoBehaviour
         dying = true;
         bgm.Stop();
         FindObjectOfType<Score>().OnPlayerDeath();
+        try
+        {
+
+            Destroy(refUI);
+        }
+        catch
+        {
+
+        }
         //freeze everything
         FindObjectOfType<ObstacleGenerator>().freeze();
         halted = true;
