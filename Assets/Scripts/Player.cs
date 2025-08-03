@@ -33,12 +33,15 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject deathEFX;
     [SerializeField] private GameObject dashEFX;
     [SerializeField] private GameObject shieldBreakEFX;
+    [SerializeField] private GameObject moveEFX;
+    [SerializeField] float moveEFXQuant = 3;
 
     [SerializeField] private bool isControlable = true;
 
+    SpriteRenderer refRenderer;
+
     int currentNode = 0;
     int direction = 1;
-    float baseSpeed = 0f;
     float dashCooldownTimeLeft = 0f;
 
     public bool halted = false;
@@ -53,7 +56,7 @@ public class Player : MonoBehaviour
     {
         pathNodes = FindObjectOfType<PathGenerator>().PathNodes; // Get the path nodes from the PathGenerator
         transform.position = pathNodes[0];
-        baseSpeed = speed; // Store the base speed for dashing  
+        refRenderer = GetComponent<SpriteRenderer>();
         shield.SetActive(false);
         try
         {
@@ -126,8 +129,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    int frameSkip = 0;
+
     void movement()
     {
+
         if (Input.GetKeyDown(KeyCode.Space) && isControlable)
         {
             turnSFX.Play();
@@ -193,6 +199,17 @@ public class Player : MonoBehaviour
         if (halted)
         {
             return;
+        }
+        if (frameSkip >= moveEFXQuant)
+        {
+            GameObject obj = Instantiate(moveEFX, transform.position, Quaternion.identity);
+            var main = obj.GetComponentInChildren<ParticleSystem>().main;
+            main.startColor = refRenderer.color;
+            frameSkip = 0;
+        }
+        else
+        {
+            frameSkip++;
         }
         //move the player speed distance on the line they are currently on
         if (pathNodes.Count > 0)

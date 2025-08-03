@@ -8267,6 +8267,7 @@ MonoBehaviour:
   deathEFX: {fileID: 1635733481624963508, guid: c78bd432761fc704a8b3ff6fca2d773f, type: 3}
   dashEFX: {fileID: 1635733481624963508, guid: 0fa12eb402ab4f74c8e8774fc662eebb, type: 3}
   shieldBreakEFX: {fileID: 1635733481624963508, guid: e820b6eb89d2ad54bb1898c5d8cd76aa, type: 3}
+  moveEFX: {fileID: 934476611773197844, guid: 09a29dd490286894f9bd154c65b38063, type: 3}
   isControlable: 1
   halted: 0
   started: 0

@@ -15,7 +15,6 @@ public class Score : MonoBehaviour
     [SerializeField] AudioSource nextStageSFX;
     [SerializeField] AudioSource newHighscoreSFX;
 
-    int pastPhaseThresholdCount = 0;
     public float score = 0;
     float progressToNextPhase = 0;
     public float highscore = 0;

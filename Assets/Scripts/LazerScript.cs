@@ -20,7 +20,6 @@ public class LazerScript : MonoBehaviour
     [SerializeField] ParticleSystem lazerWindupEFX;
 
 
-    float refScale = 0f;
     bool isLazerUp = false;
     BoxCollider2D refCollider = null;
     float upTime = 0f;
