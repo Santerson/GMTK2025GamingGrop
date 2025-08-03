@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class screennukepowerup : MonoBehaviour
 {
+    [SerializeField] GameObject explosionEFX = null;
     public void activate()
     {
         GameObject[] objs = FindObjectsOfType<GameObject>();
@@ -16,9 +17,11 @@ public class screennukepowerup : MonoBehaviour
                     FindObjectOfType<ObstacleGenerator>().lazerUp = false;
                 }
                 Destroy(obj.transform.parent.gameObject);
+
             }
 
         }
+        Instantiate(explosionEFX, Vector2.zero, Quaternion.identity);
         Destroy(transform.parent.gameObject);
     }
 }

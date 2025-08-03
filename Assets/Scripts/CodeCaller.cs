@@ -44,4 +44,9 @@ public class CodeCaller : MonoBehaviour
     {
         FindObjectOfType<SettingsManager>().changeSfxVolume(f);
     }
+
+    public void stopMenuEFX()
+    {
+        FindObjectOfType<PSTrackerForMainMenu>().stop();
+    }
 }

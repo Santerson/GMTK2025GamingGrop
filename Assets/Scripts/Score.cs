@@ -63,6 +63,7 @@ public class Score : MonoBehaviour
         if ((int)progressToNextPhase >= phaseThreshold)
         {
             FindObjectOfType<ObstacleGenerator>().RaisePhase();
+
             progressToNextPhase = 0;
             phaseThreshold += phaseIncreaseRate;
             Instantiate(phaseIncreaseEffect, Vector2.zero, Quaternion.identity);

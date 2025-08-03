@@ -27,6 +27,9 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource PowerupSFX;
     [SerializeField] private AudioSource screennukesfx;
 
+    [SerializeField] private GameObject speedPowerUpCollectEFX = null;
+    [SerializeField] private GameObject shieldPowerUpCollectEFT = null;
+    [SerializeField] private GameObject nukePowerUpCollectEFT = null;
     [SerializeField] private GameObject deathEFX;
     [SerializeField] private GameObject dashEFX;
     [SerializeField] private GameObject shieldBreakEFX;
@@ -239,16 +242,21 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("SpeedPowerup"))
         {
             PowerupSFX.Play();
+            Instantiate(speedPowerUpCollectEFX, collision.transform.position, Quaternion.identity);
             collision.GetComponent<SpeedPowerup>().activate();
         }
         else if (collision.CompareTag("NukePowerup"))
         {
             screennukesfx.Play();
+            Instantiate(nukePowerUpCollectEFT, collision.transform.position, Quaternion.identity);
+
             collision.GetComponent<screennukepowerup>().activate();
         }
         else if (collision.CompareTag("ShieldPowerup"))
         {
             PowerupSFX.Play();
+            Instantiate(shieldPowerUpCollectEFT, collision.transform.position, Quaternion.identity);
+
             Destroy(collision.transform.parent.gameObject);
             shieldDuration = 15;
             shield.SetActive(true);

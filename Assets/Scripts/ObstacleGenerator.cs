@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ObstacleGenerator : MonoBehaviour
@@ -65,6 +66,8 @@ public class ObstacleGenerator : MonoBehaviour
     [Header("MSC.")]
     [SerializeField] private float spawnDistanceOffsetX = 10f;
     [SerializeField] private float spawnDistanceOffsetY = 6f;
+    [SerializeField] TextMeshProUGUI stageText = null;
+
 
     float asteroidTimeLeft = 0f;
     float bigAsteroidTimeLeft = 0f;
@@ -78,6 +81,7 @@ public class ObstacleGenerator : MonoBehaviour
     List<GameObject> frozenObjs = new List<GameObject>();
     List<Vector2> frozenObjsVelocity = new List<Vector2>();
     List<float> frozenObjsRotation = new List<float>();
+
 
     // Update is called once per frame
     void Update()
@@ -312,6 +316,8 @@ public class ObstacleGenerator : MonoBehaviour
     public void RaisePhase()
     {
         phase++;
+
+        stageText.text = "Stage: " + phase;
 
         //decrease the asteroid spawn rate
         asteroidSpawnInterval -= asteroidSspawnDecreasePerPhase;

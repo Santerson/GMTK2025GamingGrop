@@ -66,7 +66,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: 'Tip: A speedup can be helpful in some situations, but may prove to be
-    detrimental in others.'
+    detrimental in others. This powerup also makes your dashes faster.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -93,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -228,8 +228,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -335,8 +335,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Tip: a shield may get more value being used on a large hazard, like a
-    laser, than a smaller one.'
+  m_text: 'tIP: bREAKING A SHIELD GIVES A SHORT PERIOD OF TIME WHERE ONE IS IMMUNE
+    TO ANY AND ALL DAMAGE. tHIS EFFECT CAN BE CHAINED TOGETHER FOR effectively INFINITE
+    INVINICIBILITY.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -363,8 +364,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -506,7 +507,8 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5446644156185967210, guid: bed47ec518d0acf478c3268115153fb2, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bed47ec518d0acf478c3268115153fb2, type: 3}
@@ -529,10 +531,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3974083739364147169, guid: 0f5eddedf6fad6d4790c66186d8dcd72, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3974083739364147169, guid: 0f5eddedf6fad6d4790c66186d8dcd72, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974083739364147169, guid: 0f5eddedf6fad6d4790c66186d8dcd72, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3974083739364147169, guid: 0f5eddedf6fad6d4790c66186d8dcd72, type: 3}
@@ -540,7 +546,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1721995265572760634}
     - target: {fileID: 3974083739364147169, guid: 0f5eddedf6fad6d4790c66186d8dcd72, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1721995265572760634}
+    - target: {fileID: 3974083739364147169, guid: 0f5eddedf6fad6d4790c66186d8dcd72, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974083739364147169, guid: 0f5eddedf6fad6d4790c66186d8dcd72, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3974083739364147169, guid: 0f5eddedf6fad6d4790c66186d8dcd72, type: 3}
@@ -548,11 +562,23 @@ PrefabInstance:
       value: PlayClick
       objectReference: {fileID: 0}
     - target: {fileID: 3974083739364147169, guid: 0f5eddedf6fad6d4790c66186d8dcd72, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: stopMenuEFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974083739364147169, guid: 0f5eddedf6fad6d4790c66186d8dcd72, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: CodeCaller, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3974083739364147169, guid: 0f5eddedf6fad6d4790c66186d8dcd72, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: CodeCaller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974083739364147169, guid: 0f5eddedf6fad6d4790c66186d8dcd72, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974083739364147169, guid: 0f5eddedf6fad6d4790c66186d8dcd72, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4823699374645773139, guid: 0f5eddedf6fad6d4790c66186d8dcd72, type: 3}
@@ -781,7 +807,8 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8411865301056797989, guid: c661463973c462d48afdeda0e043e5ca, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c661463973c462d48afdeda0e043e5ca, type: 3}
@@ -883,7 +910,8 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4185314006169494812, guid: 333ef88aab255fe498a510f230310fa7, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 333ef88aab255fe498a510f230310fa7, type: 3}
